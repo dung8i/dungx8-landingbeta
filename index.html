@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trần Thiên Dũng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="nebula"></div>
+<canvas id="stars-canvas"></canvas>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor-glow"></div>
+
+<nav>
+  <a href="#about" class="nav-link" data-key="nav_about">About</a>
+  <a href="#project" class="nav-link" data-key="nav_project">Project</a>
+  <a href="#journey" class="nav-link" data-key="nav_journey">Journey</a>
+  <a href="#blog" class="nav-link" data-key="nav_blog">Blog</a>
+  <a href="#contact" class="nav-link" data-key="nav_contact">Contact</a>
+  <div class="nav-divider"></div>
+  <button id="lang-btn" class="nav-btn" title="Đổi ngôn ngữ / Switch language">VI</button>
+  <button id="music-btn" class="nav-btn" title="Nhạc nền">
+    <svg id="music-icon-on" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
+    <svg id="music-icon-off" width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:none;"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.8" opacity="0.4"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.8" opacity="0.4"/><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span class="music-tip" id="music-tip">bgm.mp3</span>
+  </button>
+</nav>
+
+<audio id="bgm-audio" loop preload="auto"></audio>
+
+<!-- HERO -->
+<section id="hero">
+  <h1 class="hero-title" id="hero-title">TRANTHIENDUNG</h1>
+  <div class="hero-tags" id="hero-tagline"></div>
+  <div class="hero-status">
+    <span class="status-dot"></span>
+    <span id="status-text"></span>
+  </div>
+  <div class="scroll-cue">
+    <span data-key="scroll_down">Cuộn xuống</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <span class="eyebrow" data-key="about_eyebrow">Giới thiệu</span>
+    <h2 class="section-title" data-key="about_title">About Me</h2>
+    <div class="glass"><p id="about-text"></p></div>
+  </section>
+
+  <!-- PROJECT -->
+  <section id="project">
+    <span class="eyebrow" data-key="project_eyebrow">Xưởng của mình</span>
+    <h2 class="section-title" data-key="project_title">Dự Án Của Mình</h2>
+    <div class="project-grid" id="project-grid"></div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey">
+    <span class="eyebrow" data-key="journey_eyebrow">Chặng đường</span>
+    <h2 class="section-title" data-key="journey_title">Hành Trình</h2>
+    <div class="glass" style="padding:34px;">
+      <div class="timeline" id="journey-timeline"></div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <span class="eyebrow" data-key="blog_eyebrow">Nhật ký</span>
+    <h2 class="section-title" data-key="blog_title">Blog</h2>
+    <div class="blog-grid" id="blog-grid"></div>
+    <a class="blog-more" id="blog-more-link" target="_blank" rel="noopener">
+      <span data-key="blog_view_all">Xem tất cả bài viết</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <span class="eyebrow" data-key="contact_eyebrow">Kết nối</span>
+    <h2 class="section-title" data-key="contact_title">Contact</h2>
+    <div class="contact-layout">
+
+      <div class="contact-col">
+        <div class="glass info-card" id="info-card"></div>
+        <div class="glass skills-card" id="skills-card"></div>
+      </div>
+
+      <div class="glass form-card">
+        <form id="contact-form" method="POST">
+          <input type="hidden" name="_subject" value="Liên hệ mới từ website TRANTHIENDUNG">
+          <input type="hidden" name="_captcha" value="false">
+
+          <label data-key="form_name">Họ và tên</label>
+          <input type="text" name="Họ và tên" required placeholder="Nguyễn Văn A">
+
+          <label data-key="form_email">Email</label>
+          <input type="email" name="Email" required placeholder="you@email.com">
+
+          <label data-key="form_company">Công ty / Tổ chức</label>
+          <input type="text" name="Công ty / Tổ chức" placeholder="(không bắt buộc)">
+
+          <label data-key="form_topics">Chủ đề quan tâm</label>
+          <div class="topic-list" id="topic-list"></div>
+
+          <label data-key="form_message">Tin nhắn chi tiết</label>
+          <textarea name="Tin nhắn" rows="5" required placeholder="..."></textarea>
+
+          <button type="submit" class="submit-btn" data-key="form_submit">Gửi tin nhắn</button>
+          <div class="form-note" data-key="form_note">Tin nhắn sẽ được gửi trực tiếp đến email quản trị.</div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer id="site-footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

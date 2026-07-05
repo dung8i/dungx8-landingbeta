@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản trị nội dung — TRANTHIENDUNG</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- GATE: chỉ là rào chắn nhẹ phía trình duyệt, KHÔNG phải bảo mật thật sự -->
+<div id="gate">
+  <h1>🔒 Trang quản trị nội dung</h1>
+  <p>Trang này chỉnh nội dung website (dữ liệu ở <code>js/data.js</code>) ngay trên trình duyệt.
+     Đây <b>không phải hệ thống backend</b> — GitHub Pages là hosting tĩnh nên không thể tự lưu file.
+     Sau khi chỉnh xong, bạn xuất file <code>data.js</code> mới rồi thay thế + commit lên GitHub.</p>
+  <input type="password" id="gate-pass" placeholder="Nhập mật khẩu quản trị">
+  <button class="btn btn-primary" id="gate-btn">Vào trang quản trị</button>
+  <div id="gate-error"></div>
+</div>
+
+<div id="admin-app">
+  <div class="admin-header">
+    <div>
+      <h1>Quản trị nội dung website</h1>
+      <p>Chỉnh sửa xong, bấm <b>“Xuất data.js”</b> ở cuối trang để lấy nội dung mới,
+         rồi ghi đè vào file <code>js/data.js</code> trong repo và commit lên GitHub.</p>
+    </div>
+    <div class="top-actions">
+      <button class="btn" id="reload-btn">Tải lại từ data.js</button>
+      <button class="btn btn-danger" id="logout-btn">Đăng xuất</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="panel">
+    <h2>Hero</h2>
+    <div class="field-row">
+      <div><label>Tiêu đề lớn</label><input type="text" id="hero-title"></div>
+      <div><label>Dòng tagline (không dịch)</label><input type="text" id="hero-tagline"></div>
+    </div>
+    <label style="margin-top:10px;">Danh sách trạng thái random (song ngữ)</label>
+    <div id="status-list"></div>
+    <button class="btn btn-sm" id="add-status">+ Thêm trạng thái</button>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="panel">
+    <h2>About Me</h2>
+    <div class="field-row">
+      <div><label>Tiếng Việt</label><textarea id="about-vi" rows="4"></textarea></div>
+      <div><label>Tiếng Anh</label><textarea id="about-en" rows="4"></textarea></div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="panel">
+    <h2>Dự án</h2>
+    <div id="project-list"></div>
+    <button class="btn btn-sm" id="add-project">+ Thêm dự án</button>
+  </div>
+
+  <!-- JOURNEY -->
+  <div class="panel">
+    <h2>Hành trình</h2>
+    <div id="journey-list"></div>
+    <button class="btn btn-sm" id="add-journey">+ Thêm mốc thời gian</button>
+  </div>
+
+  <!-- BLOG -->
+  <div class="panel">
+    <h2>Blog</h2>
+    <div class="field-row">
+      <div><label>RSS feed URL</label><input type="text" id="blog-feed"></div>
+      <div><label>Trang blog chính</label><input type="text" id="blog-home"></div>
+    </div>
+    <label style="margin-top:10px;">Bài viết dự phòng (hiện khi không tải được RSS)</label>
+    <div id="blog-fallback-list"></div>
+    <button class="btn btn-sm" id="add-blog-fallback">+ Thêm bài dự phòng</button>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="panel">
+    <h2>Liên hệ</h2>
+    <div class="field-row">
+      <div><label>Email</label><input type="text" id="contact-email"></div>
+      <div><label>Địa điểm</label><input type="text" id="contact-location"></div>
+    </div>
+    <div class="field-row">
+      <div><label>Facebook — tên hiển thị</label><input type="text" id="fb-label"></div>
+      <div><label>Facebook — URL</label><input type="text" id="fb-url"></div>
+    </div>
+    <div class="field-row">
+      <div><label>YouTube — tên hiển thị</label><input type="text" id="yt-label"></div>
+      <div><label>YouTube — URL</label><input type="text" id="yt-url"></div>
+    </div>
+    <div class="field-row">
+      <div><label>TikTok — tên hiển thị</label><input type="text" id="tt-label"></div>
+      <div><label>TikTok — URL</label><input type="text" id="tt-url"></div>
+    </div>
+    <div class="field-row">
+      <div><label>Form endpoint (FormSubmit...)</label><input type="text" id="form-endpoint"></div>
+    </div>
+    <label style="margin-top:10px;">Chủ đề quan tâm trong form liên hệ</label>
+    <div id="topic-list-admin"></div>
+    <button class="btn btn-sm" id="add-topic">+ Thêm chủ đề</button>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="panel">
+    <h2>Kinh nghiệm / Kỹ năng</h2>
+    <label>Tag kỹ năng (mỗi dòng 1 tag)</label>
+    <textarea id="skill-tags" rows="3"></textarea>
+    <label style="margin-top:12px;">Cột năng lượng (ngôn ngữ lập trình %)</label>
+    <div id="skill-bars-list"></div>
+    <button class="btn btn-sm" id="add-skill-bar">+ Thêm thanh kỹ năng</button>
+  </div>
+
+  <!-- MUSIC / FOOTER -->
+  <div class="panel">
+    <h2>Nhạc nền &amp; Footer</h2>
+    <div class="field-row">
+      <div><label>Đường dẫn file nhạc</label><input type="text" id="music-file"></div>
+      <div><label>Tooltip hiển thị</label><input type="text" id="music-tooltip"></div>
+    </div>
+    <div style="margin-top:10px;"><label>Nội dung footer</label><input type="text" id="footer-text"></div>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="panel" id="export-panel">
+    <h2>Xuất file data.js</h2>
+    <p class="hint">Bấm <b>“Tạo nội dung data.js”</b>, sau đó tải file xuống hoặc copy nội dung,
+       ghi đè vào <code>js/data.js</code> trong repo GitHub của bạn rồi commit + push.
+       Trang web (index.html) sẽ tự động dùng nội dung mới ngay khi file được publish.</p>
+    <div class="export-actions">
+      <button class="btn btn-primary" id="generate-btn">Tạo nội dung data.js</button>
+      <button class="btn" id="download-btn">Tải xuống data.js</button>
+      <button class="btn" id="copy-btn">Copy nội dung</button>
+    </div>
+    <textarea id="export-output" readonly style="margin-top:16px;"></textarea>
+  </div>
+</div>
+
+<div class="msg-toast" id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
