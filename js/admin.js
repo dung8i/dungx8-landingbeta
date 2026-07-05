@@ -7,7 +7,7 @@
    không phải cơ chế bảo mật thật sự. Đừng dùng để bảo vệ dữ liệu nhạy cảm.
    ====================================================================== */
 
-const ADMIN_PASSWORD = "dungx8admin"; // đổi mật khẩu này tùy ý trước khi publish
+const ADMIN_PASSWORD = "D113d114*"; // đổi mật khẩu này tùy ý trước khi publish
 
 let workingData = JSON.parse(JSON.stringify(window.SITE_DATA)); // bản nháp đang chỉnh
 
